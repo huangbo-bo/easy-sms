@@ -44,8 +44,8 @@ class SendcloudGateway extends Gateway
         $params = [
             'smsUser' => $config->get('sms_user'),
             'templateId' => $message->getTemplate($this),
-            'msgType' => $to->getIDDCode() ? 2 : 0,
-            'phone' => $to->getZeroPrefixedNumber(),
+            'msgType' => $to->getIDDCode() != 86 ? 2 : 0,
+            'phone' => $to->getIDDCode() != 86 ? $to->getZeroPrefixedNumber() : $to->getNumber(),
             'vars' => $this->formatTemplateVars($message->getData($this)),
         ];
 
